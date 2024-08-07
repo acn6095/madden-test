@@ -27,8 +27,8 @@ const loadListObject = () => {
     const storedList = localStorage.getItem("myToDoList")
     if (typeof storedList !== "string") return
     const parsedList = JSON.parse(storedList)
-    parsedList['_list'].forEach(itemObj => {
-        const newToDoItem = createNewItem(itemObj._id, itemObj._item)
+    parsedList.forEach(itemObj => {
+        const newToDoItem = createNewItem(itemObj._id, itemObj._item, itemObj._checked)
         toDoList.addItemToList(newToDoItem)
     })
 }
@@ -38,7 +38,6 @@ const refreshThePage = () => {
     renderList()
     clearItemEntryField()
     setFocusOnItemEntry()
-
 }
 
 const clearListDisplay = () => {
@@ -67,13 +66,18 @@ const buildListItem = (item) => {
     const check = document.createElement("input")
     check.type="checkbox"
     check.id = item.getId()
+    check.className = "peer"
     check.tabIndex = 0
+    if(item.getChecked()) {
+        check.setAttribute('checked', true)
+    }
+    addClickListenerToCheckbox(check)
     const label = document.createElement("label")
     label.htmlFor = item.getId()
-    label.className = "w-full text-left pl-2"
+    label.className = "w-full text-left pl-2 peer-checked:line-through"
     label.textContent = item.getItem()
     const btn = document.createElement("button")
-    btn.className = "text-gray-500 font-semibold"
+    btn.className = "text-gray-500 font-semibold hover:text-red-500 focus:text-red-500"
     btn.title = "Remove this task"
     btn.tabIndex = 0
     btn.textContent = 'X'
@@ -86,10 +90,18 @@ const buildListItem = (item) => {
     container.appendChild(li)
 }
 
+const addClickListenerToCheckbox = (checkbox) => {
+    checkbox.addEventListener("click", (e) => {
+        e.target.setAttribute('checked', 'true')
+        updateListItem(e.target.id, true)
+    })
+}
+
+
 const addClickListenerToCheckboxClose = (btn) => {
     btn.addEventListener("click", (e) => {
         toDoList.removeItemFromList(btn.previousSibling.previousSibling.id)
-        updatePersistentData(toDoList)
+        updatePersistentData(toDoList["_list"])
         setTimeout(() => {
             refreshThePage()
         }, 100)
@@ -112,9 +124,9 @@ const processSubmission = () => {
     const newEntryText = getNewEntry()
     if (!newEntryText.length) return
     const nextItemId = calcNextItemId()
-    const toDoItem = createNewItem(nextItemId, newEntryText)
+    const toDoItem = createNewItem(nextItemId, newEntryText, false)
     toDoList.addItemToList(toDoItem)
-    updatePersistentData(toDoList)
+    updatePersistentData(toDoList["_list"])
     refreshThePage()
 }
 
@@ -131,9 +143,24 @@ const calcNextItemId = () => {
     return nextItemId
 }
 
-const createNewItem = (itemId, itemText) => {
+const createNewItem = (itemId, itemText, itemChecked) => {
     const toDo = new ToDoItem()
     toDo.setId(itemId)
     toDo.setItem(itemText)
+    toDo.setChecked(itemChecked)
     return toDo
+}
+
+const updateListItem = (itemId, itemChecked) => {
+    let currentList = toDoList.getList()
+    console.log(itemId)
+    console.log(itemChecked)
+    console.log(currentList)
+    currentList.forEach(item => {
+        if(item._id == itemId) {
+            item._checked = itemChecked
+        }
+        console.log(item)
+    })
+    updatePersistentData(currentList)
 }

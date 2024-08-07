@@ -1,0 +1,8 @@
+{
+    "name": "naron-madden-test",
+    "version": "1.0.0",
+    "author": "Andrew Naron <and.naron@gmail.com>",
+    "devDependencies": {
+        "tailwindcss": "^3.4.7"
+    }
+}

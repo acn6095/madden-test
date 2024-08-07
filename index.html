@@ -11,21 +11,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Allerta&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 
-    <!-- Dev environment use only -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-          theme: {
-            extend: {
-              fontFamily: {
-                sans: 'Poppins',
-              }
-            }
-          }
-        }
-      </script>
-
-      <script src="./js/main.js" type="module"></script>
+    <link href="./main.css" rel="stylesheet">
+    <script src="./js/main.js" type="module"></script>
 
     <title>To-Do List | Steve Madden</title>
 </head>
@@ -35,8 +22,8 @@
         <section class="newTaskEntry container mx-auto px-4 py-8">
             <form id="taskEntryForm" class="flex items-center justify-center">
                 <label class="sr-only" for="newTask">Enter a new task</label>
-                <input id="newTask" class="border border-slate-300 border-opacity-100 py-2 px-4 rounded-tl-lg rounded-bl-lg" type="text" autocomplete="off" placeholder="Add task" tabindex="0" />
-                <button id="addTask" class="border border-slate-300 bg-slate-300 hover:bg-slate-700 text-white py-2 px-4 rounded-tr-lg rounded-br-lg" title="Add a new task">+</button>
+                <input id="newTask" class="border border-slate-300 border-opacity-100 py-2 px-4 rounded-tl-lg rounded-bl-lg peer" type="text" autocomplete="off" placeholder="Add task" tabindex="0" />
+                <button id="addTask" class="border border-green-400 bg-green-400 hover:bg-green-700 hover:border-green-700 focus:bg-green-700 focus:border-green-700  text-white py-2 px-4 rounded-tr-lg rounded-br-lg peer-placeholder-shown:bg-slate-300 peer-placeholder-shown:border-slate-300 peer-placeholder-shown:hover:bg-slate-300 peer-placeholder-shown:hover:border-slate-300 peer-placeholder-shown:focus:bg-slate-300 peer-placeholder-shown:focus:border-slate-300" title="Add a new task">+</button>
             </form>
         </section>
 
@@ -46,19 +33,19 @@
             </div>
             <ul id="listItems" class="text-center mx-auto w-8/12 lg:w-1/2">
                 <li class="item flex items-center mb-2 w-full p-2 border-b border-slate-300">
-                    <input type="checkbox" id="1" tabindex="0">
-                    <label class="w-full text-left pl-2" for="1">Wake up</label>
-                    <button class="text-gray-500 font-semibold" title="Remove this task" tabindex="0" data-close>X</button>
+                    <input type="checkbox" class="peer" id="1" tabindex="0">
+                    <label class="w-full text-left pl-2 peer-checked:line-through" for="1">Wake up</label>
+                    <button class="text-gray-500 font-semibold hover:text-red-500 focus:text-red-500" title="Remove this task" tabindex="0" data-close>X</button>
                 </li>
                 <li class="item flex items-center mb-2 p-2 w-full border-b border-slate-300">
-                    <input type="checkbox" id="2" tabindex="0">
-                    <label class="w-full text-left pl-2" for="2">Get ready</label>
-                    <button class="text-gray-500 font-semibold" title="Remove this task" tabindex="0" data-close>X</button>
+                    <input type="checkbox" id="2" class="peer" tabindex="0">
+                    <label class="w-full text-left pl-2 peer-checked:line-through" for="2">Get ready</label>
+                    <button class="text-gray-500 font-semibold hover:text-red-500 focus:text-red-500" title="Remove this task" tabindex="0" data-close>X</button>
                 </li>
                 <li class="item flex items-center mb-2 p-2 w-full border-b border-slate-300">
-                    <input type="checkbox" id="3" tabindex="0">
-                    <label class="w-full text-left pl-2" for="3">Save the day</label>
-                    <button class="text-gray-500 font-semibold" title="Remove this task" tabindex="0" data-close>X</button>
+                    <input type="checkbox" id="3" class="peer" tabindex="0">
+                    <label class="w-full text-left pl-2 peer-checked:line-through" for="3">Save the day</label>
+                    <button class="text-gray-500 font-semibold hover:text-red-500 focus:text-red-500" title="Remove this task" tabindex="0" data-close>X</button>
                 </li>
             </ul>
         </section>
