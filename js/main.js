@@ -92,8 +92,13 @@ const buildListItem = (item) => {
 
 const addClickListenerToCheckbox = (checkbox) => {
     checkbox.addEventListener("click", (e) => {
-        e.target.setAttribute('checked', 'true')
-        updateListItem(e.target.id, true)
+        if (e.target.checked) {
+            e.target.setAttribute('checked', 'true')
+            updateListItem(e.target.id, true)
+        } else {
+            e.target.setAttribute('checked', 'false')
+            updateListItem(e.target.id, false)
+        }
     })
 }
 
